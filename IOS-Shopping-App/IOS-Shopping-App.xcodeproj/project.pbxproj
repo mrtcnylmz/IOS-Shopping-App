@@ -84,6 +84,7 @@
 				371F5B532912C14A001B0058 /* Plists */,
 				371F5B582912C213001B0058 /* Core */,
 				371F5B572912C206001B0058 /* Delegate */,
+				371F5B562912C1FA001B0058 /* View */,
 				371F5B552912C1E9001B0058 /* Assets */,
 			);
 			path = App;
@@ -103,6 +104,13 @@
 				37E522CE2912AC4200BCCB8B /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		371F5B562912C1FA001B0058 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		371F5B572912C206001B0058 /* Delegate */ = {
