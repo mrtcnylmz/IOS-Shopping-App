@@ -78,6 +78,100 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		371F5B522912C13E001B0058 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				371F5B532912C14A001B0058 /* Plists */,
+				371F5B582912C213001B0058 /* Core */,
+				371F5B572912C206001B0058 /* Delegate */,
+				371F5B552912C1E9001B0058 /* Assets */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		371F5B532912C14A001B0058 /* Plists */ = {
+			isa = PBXGroup;
+			children = (
+				37E522D32912AC4200BCCB8B /* Info.plist */,
+			);
+			path = Plists;
+			sourceTree = "<group>";
+		};
+		371F5B552912C1E9001B0058 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				37E522CE2912AC4200BCCB8B /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		371F5B572912C206001B0058 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				37E522C22912AC4000BCCB8B /* AppDelegate.swift */,
+				37E522C42912AC4000BCCB8B /* SceneDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		371F5B582912C213001B0058 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				37E522CB2912AC4000BCCB8B /* IOS_Shopping_App.xcdatamodeld */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		371F5B592912C228001B0058 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				371F5B5A2912C268001B0058 /* Main */,
+				371F5B5D2912C28C001B0058 /* Launch Screen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		371F5B5A2912C268001B0058 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				371F5B5C2912C275001B0058 /* View */,
+				371F5B5B2912C26E001B0058 /* Controller */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		371F5B5B2912C26E001B0058 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				37E522C62912AC4000BCCB8B /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		371F5B5C2912C275001B0058 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37E522C82912AC4000BCCB8B /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		371F5B5D2912C28C001B0058 /* Launch Screen */ = {
+			isa = PBXGroup;
+			children = (
+				371F5B5E2912C29F001B0058 /* View */,
+			);
+			path = "Launch Screen";
+			sourceTree = "<group>";
+		};
+		371F5B5E2912C29F001B0058 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37E522D02912AC4200BCCB8B /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		37E522B62912AC4000BCCB8B = {
 			isa = PBXGroup;
 			children = (
@@ -101,14 +195,8 @@
 		37E522C12912AC4000BCCB8B /* IOS-Shopping-App */ = {
 			isa = PBXGroup;
 			children = (
-				37E522C22912AC4000BCCB8B /* AppDelegate.swift */,
-				37E522C42912AC4000BCCB8B /* SceneDelegate.swift */,
-				37E522C62912AC4000BCCB8B /* ViewController.swift */,
-				37E522C82912AC4000BCCB8B /* Main.storyboard */,
-				37E522CE2912AC4200BCCB8B /* Assets.xcassets */,
-				37E522D02912AC4200BCCB8B /* LaunchScreen.storyboard */,
-				37E522D32912AC4200BCCB8B /* Info.plist */,
-				37E522CB2912AC4000BCCB8B /* IOS_Shopping_App.xcdatamodeld */,
+				371F5B522912C13E001B0058 /* App */,
+				371F5B592912C228001B0058 /* Screens */,
 			);
 			path = "IOS-Shopping-App";
 			sourceTree = "<group>";
@@ -370,7 +458,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -424,7 +512,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -444,11 +532,14 @@
 				DEVELOPMENT_TEAM = Z7FX9388V4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "IOS-Shopping-App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Shopkeep;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -472,11 +563,14 @@
 				DEVELOPMENT_TEAM = Z7FX9388V4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "IOS-Shopping-App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Shopkeep;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
