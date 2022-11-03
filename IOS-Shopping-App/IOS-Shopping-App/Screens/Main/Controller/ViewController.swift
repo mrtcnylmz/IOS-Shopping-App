@@ -7,38 +7,37 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var prod : Product?{
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
-        print("loaded")
-        
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        
-        guard let url = URL(string: "https://fakestoreapi.com/products") else {
-            print("no url response")
-            return
+        StoreAPI.shared.fetchUrl { product, error in
+            self.prod = product
         }
-        
-        let request = URLRequest(url: url)
-        let dataTask = session.dataTask(with: request) { data, response, error in
-            if error != nil {
-                print(error)
-                return
-            }
-            
-            guard let response = response else {
-                return
-            }
-            
-            let decoder 
-        }
-        dataTask.resume()
     }
+    
 
-
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        prod?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "celly", for: indexPath)
+        cell.textLabel?.text = prod![indexPath.row].id?.description
+        cell.backgroundColor = .cyan
+        return cell
+    }
 }
 

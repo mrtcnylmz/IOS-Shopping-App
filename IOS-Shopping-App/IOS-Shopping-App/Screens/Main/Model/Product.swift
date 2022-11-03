@@ -4,15 +4,18 @@
 //
 //  Created by Mertcan Yılmaz on 2.11.2022.
 //
+//   let product = try? newJSONDecoder().decode(Product.self, from: jsonData)
+
 
 import Foundation
 
-// MARK: - Product
-struct Product: Codable {
+// MARK: - ProductElement
+struct ProductElement: Codable {
     let id: Int?
     let title: String?
     let price: Double?
-    let productDescription, category: String?
+    let productDescription: String?
+    let category: Category?
     let image: String?
     let rating: Rating?
 
@@ -23,8 +26,17 @@ struct Product: Codable {
     }
 }
 
+enum Category: String, Codable {
+    case electronics = "electronics"
+    case jewelery = "jewelery"
+    case menSClothing = "men's clothing"
+    case womenSClothing = "women's clothing"
+}
+
 // MARK: - Rating
 struct Rating: Codable {
     let rate: Double?
     let count: Int?
 }
+
+typealias Product = [ProductElement]
