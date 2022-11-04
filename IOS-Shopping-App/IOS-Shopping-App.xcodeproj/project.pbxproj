@@ -17,6 +17,8 @@
 		37E00E4C2915217B00C8B70C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 37E00E4B2915217B00C8B70C /* FirebaseStorage */; };
 		37E00E4E291525D000C8B70C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37E00E4D291525D000C8B70C /* GoogleService-Info.plist */; };
 		37E00E5129152D9900C8B70C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E00E5029152D9900C8B70C /* Alerts.swift */; };
+		37E00E5C29158DF900C8B70C /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E00E5A29158DF900C8B70C /* MainScreenViewController.swift */; };
+		37E00E5D29158DF900C8B70C /* MainScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E00E5B29158DF900C8B70C /* MainScreenViewController.xib */; };
 		37E522C32912AC4000BCCB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E522C22912AC4000BCCB8B /* AppDelegate.swift */; };
 		37E522C52912AC4000BCCB8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E522C42912AC4000BCCB8B /* SceneDelegate.swift */; };
 		37E522C72912AC4000BCCB8B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E522C62912AC4000BCCB8B /* ViewController.swift */; };
@@ -56,6 +58,8 @@
 		3764A4E929132FD1007FB31D /* ProductsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsResponse.swift; sourceTree = "<group>"; };
 		37E00E4D291525D000C8B70C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37E00E5029152D9900C8B70C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		37E00E5A29158DF900C8B70C /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		37E00E5B29158DF900C8B70C /* MainScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainScreenViewController.xib; sourceTree = "<group>"; };
 		37E522BF2912AC4000BCCB8B /* IOS-Shopping-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IOS-Shopping-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37E522C22912AC4000BCCB8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37E522C42912AC4000BCCB8B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +155,7 @@
 		371F5B592912C228001B0058 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				37E00E572915597600C8B70C /* Main Screen */,
 				37EBB668291413810052D18E /* Auth Screen */,
 				371F5B5A2912C268001B0058 /* Main */,
 				371F5B5D2912C28C001B0058 /* Launch Screen */,
@@ -225,6 +230,31 @@
 				37E00E5029152D9900C8B70C /* Alerts.swift */,
 			);
 			path = Alert;
+			sourceTree = "<group>";
+		};
+		37E00E572915597600C8B70C /* Main Screen */ = {
+			isa = PBXGroup;
+			children = (
+				37E00E592915599F00C8B70C /* View */,
+				37E00E582915598500C8B70C /* Controller */,
+			);
+			path = "Main Screen";
+			sourceTree = "<group>";
+		};
+		37E00E582915598500C8B70C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				37E00E5A29158DF900C8B70C /* MainScreenViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		37E00E592915599F00C8B70C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37E00E5B29158DF900C8B70C /* MainScreenViewController.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		37E522B62912AC4000BCCB8B = {
@@ -416,6 +446,7 @@
 				37E00E4E291525D000C8B70C /* GoogleService-Info.plist in Resources */,
 				37E522CF2912AC4200BCCB8B /* Assets.xcassets in Resources */,
 				37E522CA2912AC4000BCCB8B /* Main.storyboard in Resources */,
+				37E00E5D29158DF900C8B70C /* MainScreenViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +476,7 @@
 				37EBB66D291417610052D18E /* AuthViewController.swift in Sources */,
 				3764A4E229131004007FB31D /* User.swift in Sources */,
 				37E522C32912AC4000BCCB8B /* AppDelegate.swift in Sources */,
+				37E00E5C29158DF900C8B70C /* MainScreenViewController.swift in Sources */,
 				37E522C52912AC4000BCCB8B /* SceneDelegate.swift in Sources */,
 				37E522CD2912AC4000BCCB8B /* IOS_Shopping_App.xcdatamodeld in Sources */,
 				3764A4E62913110E007FB31D /* Product.swift in Sources */,
