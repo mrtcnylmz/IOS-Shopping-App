@@ -30,6 +30,6 @@ final class StoreAPI {
             let product = try? decoder.decode(Product.self, from: data!)
             complation(product,nil)
         }
-        dataTask.resume()
+        //dataTask.resume()
     }
 }

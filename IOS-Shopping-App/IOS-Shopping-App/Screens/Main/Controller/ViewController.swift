@@ -39,5 +39,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.backgroundColor = .cyan
         return cell
     }
+    
+    
+    @IBAction func buttonclick(_ sender: Any) {
+        //let myVC = ViewController(nibName:"AuthViewController", bundle:nil)
+        //self.navigationController?.pushViewController(myVC, animated: true);
+        self.navigationController!.pushViewController(AuthViewController(), animated: true );
+
+    }
+    
+    
 }
 
