@@ -32,6 +32,16 @@
 		37E522E92912AC4300BCCB8B /* IOS_Shopping_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E522E82912AC4300BCCB8B /* IOS_Shopping_AppUITestsLaunchTests.swift */; };
 		37EBB66D291417610052D18E /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EBB66B291417610052D18E /* AuthViewController.swift */; };
 		37EBB66E291417610052D18E /* AuthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37EBB66C291417610052D18E /* AuthViewController.xib */; };
+		37FC1DF529169B630056B2EC /* ProductScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC1DF329169B630056B2EC /* ProductScreenViewController.swift */; };
+		37FC1DF629169B630056B2EC /* ProductScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FC1DF429169B630056B2EC /* ProductScreenViewController.xib */; };
+		37FC1DF929169B7D0056B2EC /* SearchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC1DF729169B7D0056B2EC /* SearchScreenViewController.swift */; };
+		37FC1DFA29169B7D0056B2EC /* SearchScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FC1DF829169B7D0056B2EC /* SearchScreenViewController.xib */; };
+		37FC1DFD29169B8E0056B2EC /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC1DFB29169B8E0056B2EC /* ProfileScreenViewController.swift */; };
+		37FC1DFE29169B8E0056B2EC /* ProfileScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FC1DFC29169B8E0056B2EC /* ProfileScreenViewController.xib */; };
+		37FC1E012916A1990056B2EC /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC1DFF2916A1990056B2EC /* TabBarViewController.swift */; };
+		37FC1E022916A1990056B2EC /* TabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FC1E002916A1990056B2EC /* TabBarViewController.xib */; };
+		37FC1E0C2916F3F60056B2EC /* CustomProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC1E0A2916F3F60056B2EC /* CustomProfileTableViewCell.swift */; };
+		37FC1E0D2916F3F60056B2EC /* CustomProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FC1E0B2916F3F60056B2EC /* CustomProfileTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +88,16 @@
 		37E522E82912AC4300BCCB8B /* IOS_Shopping_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOS_Shopping_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		37EBB66B291417610052D18E /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		37EBB66C291417610052D18E /* AuthViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthViewController.xib; sourceTree = "<group>"; };
+		37FC1DF329169B630056B2EC /* ProductScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductScreenViewController.swift; sourceTree = "<group>"; };
+		37FC1DF429169B630056B2EC /* ProductScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductScreenViewController.xib; sourceTree = "<group>"; };
+		37FC1DF729169B7D0056B2EC /* SearchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenViewController.swift; sourceTree = "<group>"; };
+		37FC1DF829169B7D0056B2EC /* SearchScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchScreenViewController.xib; sourceTree = "<group>"; };
+		37FC1DFB29169B8E0056B2EC /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
+		37FC1DFC29169B8E0056B2EC /* ProfileScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileScreenViewController.xib; sourceTree = "<group>"; };
+		37FC1DFF2916A1990056B2EC /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		37FC1E002916A1990056B2EC /* TabBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabBarViewController.xib; sourceTree = "<group>"; };
+		37FC1E0A2916F3F60056B2EC /* CustomProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProfileTableViewCell.swift; sourceTree = "<group>"; };
+		37FC1E0B2916F3F60056B2EC /* CustomProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomProfileTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,10 +177,13 @@
 		371F5B592912C228001B0058 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				37E00E572915597600C8B70C /* Main Screen */,
-				37EBB668291413810052D18E /* Auth Screen */,
 				371F5B5A2912C268001B0058 /* Main */,
 				371F5B5D2912C28C001B0058 /* Launch Screen */,
+				37EBB668291413810052D18E /* Auth Screen */,
+				37E00E572915597600C8B70C /* Main Screen */,
+				37FC1DF029169B020056B2EC /* Product Screen */,
+				37FC1DF129169B100056B2EC /* Search Screen */,
+				37FC1DF229169B1F0056B2EC /* Profile Screen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -240,6 +263,8 @@
 				37E00E5E2915E88300C8B70C /* ViewModel */,
 				37E00E592915599F00C8B70C /* View */,
 				37E00E582915598500C8B70C /* Controller */,
+				37FC1DFF2916A1990056B2EC /* TabBarViewController.swift */,
+				37FC1E002916A1990056B2EC /* TabBarViewController.xib */,
 			);
 			path = "Main Screen";
 			sourceTree = "<group>";
@@ -338,6 +363,67 @@
 				37EBB66B291417610052D18E /* AuthViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		37FC1DF029169B020056B2EC /* Product Screen */ = {
+			isa = PBXGroup;
+			children = (
+				37FC1DF329169B630056B2EC /* ProductScreenViewController.swift */,
+				37FC1DF429169B630056B2EC /* ProductScreenViewController.xib */,
+			);
+			path = "Product Screen";
+			sourceTree = "<group>";
+		};
+		37FC1DF129169B100056B2EC /* Search Screen */ = {
+			isa = PBXGroup;
+			children = (
+				37FC1DF729169B7D0056B2EC /* SearchScreenViewController.swift */,
+				37FC1DF829169B7D0056B2EC /* SearchScreenViewController.xib */,
+			);
+			path = "Search Screen";
+			sourceTree = "<group>";
+		};
+		37FC1DF229169B1F0056B2EC /* Profile Screen */ = {
+			isa = PBXGroup;
+			children = (
+				37FC1E0F2916F8FD0056B2EC /* Model */,
+				37FC1E0E2916F8C30056B2EC /* ViewModel */,
+				37FC1E082916EACD0056B2EC /* Controller */,
+				37FC1E092916EAE80056B2EC /* View */,
+				37FC1E0A2916F3F60056B2EC /* CustomProfileTableViewCell.swift */,
+				37FC1E0B2916F3F60056B2EC /* CustomProfileTableViewCell.xib */,
+			);
+			path = "Profile Screen";
+			sourceTree = "<group>";
+		};
+		37FC1E082916EACD0056B2EC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				37FC1DFB29169B8E0056B2EC /* ProfileScreenViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		37FC1E092916EAE80056B2EC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37FC1DFC29169B8E0056B2EC /* ProfileScreenViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		37FC1E0E2916F8C30056B2EC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		37FC1E0F2916F8FD0056B2EC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -452,9 +538,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37FC1E022916A1990056B2EC /* TabBarViewController.xib in Resources */,
 				37EBB66E291417610052D18E /* AuthViewController.xib in Resources */,
+				37FC1E0D2916F3F60056B2EC /* CustomProfileTableViewCell.xib in Resources */,
+				37FC1DFE29169B8E0056B2EC /* ProfileScreenViewController.xib in Resources */,
 				37E522D22912AC4200BCCB8B /* LaunchScreen.storyboard in Resources */,
+				37FC1DF629169B630056B2EC /* ProductScreenViewController.xib in Resources */,
 				37E00E4E291525D000C8B70C /* GoogleService-Info.plist in Resources */,
+				37FC1DFA29169B7D0056B2EC /* SearchScreenViewController.xib in Resources */,
 				37E522CF2912AC4200BCCB8B /* Assets.xcassets in Resources */,
 				37E522CA2912AC4000BCCB8B /* Main.storyboard in Resources */,
 				37E00E5D29158DF900C8B70C /* MainScreenViewController.xib in Resources */,
@@ -482,17 +573,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37FC1DF529169B630056B2EC /* ProductScreenViewController.swift in Sources */,
 				37E522C72912AC4000BCCB8B /* ViewController.swift in Sources */,
 				3764A4DE2912DDD4007FB31D /* StoreAPI.swift in Sources */,
 				37EBB66D291417610052D18E /* AuthViewController.swift in Sources */,
+				37FC1DFD29169B8E0056B2EC /* ProfileScreenViewController.swift in Sources */,
 				3764A4E229131004007FB31D /* User.swift in Sources */,
 				37E522C32912AC4000BCCB8B /* AppDelegate.swift in Sources */,
 				37E00E5C29158DF900C8B70C /* MainScreenViewController.swift in Sources */,
+				37FC1DF929169B7D0056B2EC /* SearchScreenViewController.swift in Sources */,
+				37FC1E012916A1990056B2EC /* TabBarViewController.swift in Sources */,
 				37E522C52912AC4000BCCB8B /* SceneDelegate.swift in Sources */,
 				37E00E602915E8A900C8B70C /* MainScreenViewModel.swift in Sources */,
 				37E522CD2912AC4000BCCB8B /* IOS_Shopping_App.xcdatamodeld in Sources */,
 				3764A4E62913110E007FB31D /* Product.swift in Sources */,
 				3764A4EA29132FD1007FB31D /* ProductsResponse.swift in Sources */,
+				37FC1E0C2916F3F60056B2EC /* CustomProfileTableViewCell.swift in Sources */,
 				37E00E5129152D9900C8B70C /* Alerts.swift in Sources */,
 				3764A4E82913115D007FB31D /* Cart.swift in Sources */,
 			);

@@ -18,4 +18,13 @@ final class AlertMaker{
         alert.addAction(okAction)
         controller.present(alert, animated: true)
     }
+    
+    func basicCancelAlert(`on` controller: UIViewController, title : String, message : String, okFunc : ((UIAlertAction) -> Void)?){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: okFunc)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        controller.present(alert, animated: true)
+    }
 }

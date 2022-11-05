@@ -83,12 +83,13 @@ class AuthViewController: UIViewController {
                 return
             }
             if Auth.auth().currentUser != nil {
-                AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Login Successfull.", okFunc: nil)
-                print(Auth.auth().currentUser?.displayName!)
-                //TODO: Segue to main screen.
+                //AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Login Successfull.", okFunc: nil)
+                let tabBar = TabBarViewController()
+                tabBar.modalTransitionStyle = .coverVertical
+                tabBar.modalPresentationStyle = .fullScreen
+                self.present(tabBar, animated: true)
             }
         }
-
     }
     
     //MARK: - Register
