@@ -22,6 +22,7 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomProfileTableViewCell {
             if indexPath.section == 1 && indexPath.row == 1 {
+                cell.isUserInteractionEnabled = true
                 cell.subtitleLabel.text = "Sign Out"
                 cell.titleLabel.text = ""
                 cell.subtitleLabel.textColor = .red
@@ -55,6 +56,7 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Selected")
         if indexPath.section == 1 && indexPath.row == 1 {
             print("Sign out Function")
             signOutButtonAction(0)
