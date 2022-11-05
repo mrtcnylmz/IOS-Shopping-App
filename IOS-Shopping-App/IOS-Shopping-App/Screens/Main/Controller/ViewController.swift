@@ -11,7 +11,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var tableView: UITableView!
     
-    var prod : Product?{
+    private var productListViewModel : ProductListViewModel?{
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    var prod : [Product]?{
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -25,29 +33,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         StoreAPI.shared.fetchUrl { product, error in
             self.prod = product
         }
+        
+        //getData()
+
+        
+        
     }
     
-
+    func getData() {
+        StoreAPI.shared.fetchProducts { products, error in
+            if let products = products {
+                self.productListViewModel = ProductListViewModel(productList: products)
+            }
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        prod?.count ?? 0
+        self.productListViewModel?.numberOfRowsInSection() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celly", for: indexPath)
-        cell.textLabel?.text = prod![indexPath.row].id?.description
-        cell.backgroundColor = .cyan
+        let productViewModel = self.productListViewModel!.productAtIndex(indexPath.row)
+        
+        cell.textLabel?.text = productViewModel.name
+        cell.backgroundColor = .gray
         return cell
     }
-    
     
     @IBAction func buttonclick(_ sender: Any) {
         //let myVC = ViewController(nibName:"AuthViewController", bundle:nil)
         //self.navigationController?.pushViewController(myVC, animated: true);
         self.navigationController!.pushViewController(AuthViewController(), animated: true );
-
+        
     }
-    
-    
 }
 
