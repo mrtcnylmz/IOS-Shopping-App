@@ -43,6 +43,7 @@
 		37FC1E0D2916F3F60056B2EC /* CustomProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FC1E0B2916F3F60056B2EC /* CustomProfileTableViewCell.xib */; };
 		37FC1E13291700CC0056B2EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC1E12291700CC0056B2EC /* User.swift */; };
 		37FC1E152917012D0056B2EC /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC1E142917012D0056B2EC /* UserViewModel.swift */; };
+		37FC1E18291707D80056B2EC /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC1E17291707D80056B2EC /* LaunchScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		37FC1E0B2916F3F60056B2EC /* CustomProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomProfileTableViewCell.xib; sourceTree = "<group>"; };
 		37FC1E12291700CC0056B2EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37FC1E142917012D0056B2EC /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		37FC1E17291707D80056B2EC /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +221,7 @@
 		371F5B5D2912C28C001B0058 /* Launch Screen */ = {
 			isa = PBXGroup;
 			children = (
+				37FC1E16291707AD0056B2EC /* Controller */,
 				371F5B5E2912C29F001B0058 /* View */,
 			);
 			path = "Launch Screen";
@@ -391,8 +394,6 @@
 				37FC1E0E2916F8C30056B2EC /* ViewModel */,
 				37FC1E082916EACD0056B2EC /* Controller */,
 				37FC1E092916EAE80056B2EC /* View */,
-				37FC1E0A2916F3F60056B2EC /* CustomProfileTableViewCell.swift */,
-				37FC1E0B2916F3F60056B2EC /* CustomProfileTableViewCell.xib */,
 			);
 			path = "Profile Screen";
 			sourceTree = "<group>";
@@ -400,6 +401,7 @@
 		37FC1E082916EACD0056B2EC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				37FC1E0A2916F3F60056B2EC /* CustomProfileTableViewCell.swift */,
 				37FC1DFB29169B8E0056B2EC /* ProfileScreenViewController.swift */,
 			);
 			path = Controller;
@@ -408,6 +410,7 @@
 		37FC1E092916EAE80056B2EC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				37FC1E0B2916F3F60056B2EC /* CustomProfileTableViewCell.xib */,
 				37FC1DFC29169B8E0056B2EC /* ProfileScreenViewController.xib */,
 			);
 			path = View;
@@ -427,6 +430,14 @@
 				37FC1E12291700CC0056B2EC /* User.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		37FC1E16291707AD0056B2EC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				37FC1E17291707D80056B2EC /* LaunchScreenViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -594,6 +605,7 @@
 				37FC1E13291700CC0056B2EC /* User.swift in Sources */,
 				37FC1E0C2916F3F60056B2EC /* CustomProfileTableViewCell.swift in Sources */,
 				37E00E5129152D9900C8B70C /* Alerts.swift in Sources */,
+				37FC1E18291707D80056B2EC /* LaunchScreenViewController.swift in Sources */,
 				3764A4E82913115D007FB31D /* Cart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

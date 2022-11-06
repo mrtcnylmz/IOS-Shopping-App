@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - User
 struct User: Codable {
-    let id: UUID
+    let id: String
     let name: String
     let email: String
 

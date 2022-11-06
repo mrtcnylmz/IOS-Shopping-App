@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 class AuthViewController: UIViewController {
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -82,8 +82,16 @@ class AuthViewController: UIViewController {
                 AlertMaker.shared.basicAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
                 return
             }
+            
+            let userInfo : User = User(id: (authResult?.user.uid)!,
+                                       name: (authResult?.user.displayName)!,
+                                       email: (authResult?.user.email)!)
+            
+            if let data = try? PropertyListEncoder().encode(userInfo) {
+                UserDefaults.standard.set(data, forKey: "currentUserInfo")
+            }
+            
             if Auth.auth().currentUser != nil {
-                //AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Login Successfull.", okFunc: nil)
                 let tabBar = TabBarViewController()
                 tabBar.modalTransitionStyle = .coverVertical
                 tabBar.modalPresentationStyle = .fullScreen
@@ -119,9 +127,10 @@ class AuthViewController: UIViewController {
             }
             
             let userInfoDictionary = [
+                "uid": authResult?.user.uid,
                 "email": emailTextField.text!,
                 "username": usernameTextField.text!,
-                ]as [String: Any]
+            ]as [String: Any]
             
             fireStore.collection("User_Infos").addDocument(data: userInfoDictionary){(error) in
                 guard error == nil else {
@@ -130,9 +139,21 @@ class AuthViewController: UIViewController {
                 }
             }
             
+            let userInfo : User = User(id: (authResult?.user.uid)!,
+                                       name: usernameTextField.text!,
+                                       email: (authResult?.user.email)!)
+            
+            if let data = try? PropertyListEncoder().encode(userInfo) {
+                UserDefaults.standard.set(data, forKey: "currentUserInfo")
+            }
+            
             AlertMaker.shared.basicAlert(on: self, title: "Success", message: "User created!", okFunc: {_ in
-                //TODO: - a
-                //self.performSegue(withIdentifier: "toTabBar", sender: nil)
+                if Auth.auth().currentUser != nil {
+                    let tabBar = TabBarViewController()
+                    tabBar.modalTransitionStyle = .coverVertical
+                    tabBar.modalPresentationStyle = .fullScreen
+                    self.present(tabBar, animated: true)
+                }
             })
         }
     }
@@ -144,17 +165,17 @@ class AuthViewController: UIViewController {
             UITextField.placeholder = "User Email"
         }
         let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { UIAlertAction in
-                self.dimView.isHidden = false
-                self.activityIndicator.startAnimating()
-                Auth.auth().sendPasswordReset(withEmail: alert.textFields![0].text!) { err in
-                    self.dimView.isHidden = true
-                    self.activityIndicator.stopAnimating()
-                    if err != nil{
-                        AlertMaker.shared.basicAlert(on: self, title: "⚠️ Error", message: err?.localizedDescription ?? "Failure.", okFunc: nil)
-                    }else {
-                        AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Please check your email for further steps.", okFunc: nil)
-                    }
+            self.dimView.isHidden = false
+            self.activityIndicator.startAnimating()
+            Auth.auth().sendPasswordReset(withEmail: alert.textFields![0].text!) { err in
+                self.dimView.isHidden = true
+                self.activityIndicator.stopAnimating()
+                if err != nil{
+                    AlertMaker.shared.basicAlert(on: self, title: "⚠️ Error", message: err?.localizedDescription ?? "Failure.", okFunc: nil)
+                }else {
+                    AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Please check your email for further steps.", okFunc: nil)
                 }
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
         alert.addAction(cancelAction)
