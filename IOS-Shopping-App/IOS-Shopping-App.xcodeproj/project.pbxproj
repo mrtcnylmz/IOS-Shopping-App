@@ -256,6 +256,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		37974F39291854290019510A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37FC1DF429169B630056B2EC /* ProductScreenViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		37974F3A291854310019510A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				37FC1DF329169B630056B2EC /* ProductScreenViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		37AA64372917325F00EE490F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,10 +406,10 @@
 		37FC1DF029169B020056B2EC /* Product Screen */ = {
 			isa = PBXGroup;
 			children = (
-				37E00E5E2915E88300C8B70C /* ViewModel */,
 				3764A4E029130FF0007FB31D /* Model */,
-				37FC1DF329169B630056B2EC /* ProductScreenViewController.swift */,
-				37FC1DF429169B630056B2EC /* ProductScreenViewController.xib */,
+				37974F3A291854310019510A /* Controller */,
+				37974F39291854290019510A /* View */,
+				37E00E5E2915E88300C8B70C /* ViewModel */,
 			);
 			path = "Product Screen";
 			sourceTree = "<group>";
