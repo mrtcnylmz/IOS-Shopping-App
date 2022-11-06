@@ -34,4 +34,10 @@ class ProductScreenViewController: UIViewController {
         }
     }
 
+    @IBAction func IndicationButon(_ sender: UIButton) {
+        self.showIndicationSpinner()
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { t in
+            self.removeIndicationSpinner()
+        }
+    }
 }

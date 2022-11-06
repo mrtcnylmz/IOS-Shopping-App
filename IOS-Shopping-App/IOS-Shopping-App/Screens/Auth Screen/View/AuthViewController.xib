@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,8 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthViewController" customModule="IOS_Shopping_App" customModuleProvider="target">
             <connections>
-                <outlet property="activityIndicator" destination="gFP-Ml-Soe" id="h1J-VJ-PtU"/>
-                <outlet property="dimView" destination="K7n-rL-FGc" id="lgu-0h-S1a"/>
                 <outlet property="emailTextField" destination="6io-9Q-gF3" id="ueE-DH-tWR"/>
                 <outlet property="passwordRepeatTextField" destination="9b9-Ug-F8T" id="9TM-7I-FMe"/>
                 <outlet property="passwordTextField" destination="w0j-26-hb1" id="RJ3-aq-zC7"/>
@@ -79,7 +76,6 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qV6-Jf-xeR">
                     <rect key="frame" x="87" y="456" width="200" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="tintColor" name="AccentColor"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="Login"/>
                     <connections>
@@ -96,17 +92,6 @@
                         <action selector="forgotPasswordButton:" destination="-1" eventType="touchUpInside" id="LoL-uw-Vsb"/>
                     </connections>
                 </button>
-                <view hidden="YES" opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K7n-rL-FGc">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="gFP-Ml-Soe">
-                            <rect key="frame" x="126" y="280" width="123" height="107"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </activityIndicatorView>
-                    </subviews>
-                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
@@ -114,9 +99,6 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="AccentColor">
-            <color red="0.14200000464916229" green="0.210999995470047" blue="0.95899999141693115" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

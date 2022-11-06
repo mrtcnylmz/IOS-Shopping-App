@@ -17,8 +17,6 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordRepeatTextField: UITextField!
     @IBOutlet weak var signButton: UIButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var dimView: UIView!
     
     let userAuth = Auth.auth()
     let fireStore = Firestore.firestore()
@@ -73,11 +71,9 @@ class AuthViewController: UIViewController {
     
     //MARK: - Login
     func login(){
-        self.dimView.isHidden = false
-        self.activityIndicator.startAnimating()
+        self.showIndicationSpinner()
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { authResult, error in
-            self.dimView.isHidden = true
-            self.activityIndicator.stopAnimating()
+            self.removeIndicationSpinner()
             guard error == nil else {
                 AlertMaker.shared.basicAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
                 return
@@ -107,11 +103,9 @@ class AuthViewController: UIViewController {
             AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Please repeat the password correctly.", okFunc: nil)
             return
         }
-        self.dimView.isHidden = false
-        self.activityIndicator.startAnimating()
+        self.showIndicationSpinner()
         userAuth.createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { [self] authResult, error in
-            self.dimView.isHidden = true
-            self.activityIndicator.stopAnimating()
+            self.removeIndicationSpinner()
             guard error == nil else {
                 AlertMaker.shared.basicAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
                 return
@@ -165,11 +159,9 @@ class AuthViewController: UIViewController {
             UITextField.placeholder = "User Email"
         }
         let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { UIAlertAction in
-            self.dimView.isHidden = false
-            self.activityIndicator.startAnimating()
+            self.showIndicationSpinner()
             Auth.auth().sendPasswordReset(withEmail: alert.textFields![0].text!) { err in
-                self.dimView.isHidden = true
-                self.activityIndicator.stopAnimating()
+                self.removeIndicationSpinner()
                 if err != nil{
                     AlertMaker.shared.basicAlert(on: self, title: "⚠️ Error", message: err?.localizedDescription ?? "Failure.", okFunc: nil)
                 }else {

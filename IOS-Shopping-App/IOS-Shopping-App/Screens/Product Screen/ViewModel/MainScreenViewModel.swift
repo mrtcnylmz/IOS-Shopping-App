@@ -51,7 +51,7 @@ extension ProductViewModel {
         return self.product.rating
     }
     
-    var image : String {
+    var image : URL {
         return self.product.image
     }
 }

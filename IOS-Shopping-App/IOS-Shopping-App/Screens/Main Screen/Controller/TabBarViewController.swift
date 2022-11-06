@@ -11,8 +11,6 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("saaa")
 
         let productScreenController = ProductScreenViewController()
         let searchScreenController = SearchScreenViewController()

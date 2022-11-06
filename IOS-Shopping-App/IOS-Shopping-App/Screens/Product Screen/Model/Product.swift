@@ -16,7 +16,7 @@ struct Product: Codable {
     let price: Double
     let productDescription: String
     let category: String
-    let image: String
+    let image: URL
     let rating: Rating
 
     enum CodingKeys: String, CodingKey {
