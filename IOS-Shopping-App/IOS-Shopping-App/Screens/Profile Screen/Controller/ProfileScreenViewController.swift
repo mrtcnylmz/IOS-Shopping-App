@@ -88,9 +88,9 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "User Info"
+            return "USER INFO"
         default:
-            return "User Settings"
+            return "USER SETTINGS"
         }
     }
     

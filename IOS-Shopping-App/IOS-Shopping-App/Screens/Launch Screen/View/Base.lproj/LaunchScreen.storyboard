@@ -17,21 +17,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="undraw_empty_cart_co35" translatesAutoresizingMaskIntoConstraints="NO" id="QOU-q5-9KQ">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="playstore" translatesAutoresizingMaskIntoConstraints="NO" id="QOU-q5-9KQ">
                                 <rect key="frame" x="37" y="172" width="300" height="258"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shoopkeep" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLY-N4-j6a">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Shopkeep" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLY-N4-j6a">
                                 <rect key="frame" x="37" y="438" width="300" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="ZY5-hK-atk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="37"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                        <constraints>
+                            <constraint firstItem="QOU-q5-9KQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="7uV-ed-NSG"/>
+                            <constraint firstItem="QOU-q5-9KQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="JBC-nx-11I"/>
+                            <constraint firstItem="QOU-q5-9KQ" firstAttribute="trailing" secondItem="KLY-N4-j6a" secondAttribute="trailing" id="MEL-Gw-jjp"/>
+                            <constraint firstItem="QOU-q5-9KQ" firstAttribute="leading" secondItem="KLY-N4-j6a" secondAttribute="leading" id="bT7-Pf-k7e"/>
+                            <constraint firstItem="QOU-q5-9KQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="172" id="eeG-sG-fKy"/>
+                            <constraint firstItem="KLY-N4-j6a" firstAttribute="top" secondItem="QOU-q5-9KQ" secondAttribute="bottom" constant="8" id="lVj-Ok-fP6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KLY-N4-j6a" secondAttribute="bottom" constant="173" id="r7V-YD-vl9"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -40,7 +50,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="undraw_empty_cart_co35" width="896" height="747.971435546875"/>
+        <image name="playstore" width="512" height="512"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
