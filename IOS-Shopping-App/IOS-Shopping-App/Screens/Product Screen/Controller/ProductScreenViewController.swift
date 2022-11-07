@@ -24,6 +24,7 @@ class ProductScreenViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Products"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .plain, target: self, action: #selector(toBasket))
         getProducts()
         self.productsCollectionView.register(UINib(nibName: "SearchCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "searchCollectionCell")
     }
@@ -40,16 +41,16 @@ class ProductScreenViewController: UIViewController {
             }
         }
     }
+    
+    @objc func toBasket() {
+        let basketViewController = BasketViewController()
+        self.present(basketViewController, animated: true)
+    }
 }
 
 extension ProductScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print(indexPath.row)
-        print(indexPath.item)
-        print(indexPath.section)
-        
         let detailViewController = DetailViewController()
         detailViewController.hidesBottomBarWhenPushed = true
         detailViewController.product = self.productListViewModel!.productAtIndex(indexPath.item)

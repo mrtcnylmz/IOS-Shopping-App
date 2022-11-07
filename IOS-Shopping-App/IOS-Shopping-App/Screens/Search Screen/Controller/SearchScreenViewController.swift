@@ -27,6 +27,8 @@ class SearchScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .plain, target: self, action: #selector(toBasket))
+        
         searchController.searchBar.placeholder = "Products..."
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
@@ -36,6 +38,11 @@ class SearchScreenViewController: UIViewController {
         layout.minimumInteritemSpacing = 5
         self.searchCollectionView.setCollectionViewLayout(layout, animated: true)
         getData()
+    }
+    
+    @objc func toBasket() {
+        let basketViewController = BasketViewController()
+        self.present(basketViewController, animated: true)
     }
     
     // MARK: searchSegmentedControlAction
@@ -123,7 +130,13 @@ extension SearchScreenViewController: UISearchResultsUpdating {
 extension SearchScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.productListViewModel?.numberOfRowsInSection() ?? 0
-        // TODO: a
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailViewController = DetailViewController()
+        detailViewController.hidesBottomBarWhenPushed = true
+        detailViewController.product = self.productListViewModel!.productAtIndex(indexPath.item)
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

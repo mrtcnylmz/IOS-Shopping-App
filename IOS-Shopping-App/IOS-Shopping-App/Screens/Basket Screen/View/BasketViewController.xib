@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BasketViewController" customModule="IOS_Shopping_App" customModuleProvider="target">
+            <connections>
+                <outlet property="BasketTableView" destination="vPi-Jj-i9s" id="m9p-ou-i1U"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vPi-Jj-i9s">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Bmt-jh-wtC"/>
+                        <outlet property="delegate" destination="-1" id="iQr-Ya-qr1"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vPi-Jj-i9s" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="20k-d0-aBN"/>
+                <constraint firstItem="vPi-Jj-i9s" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ZnR-a2-8ds"/>
+                <constraint firstItem="vPi-Jj-i9s" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="rKD-2y-OM3"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vPi-Jj-i9s" secondAttribute="trailing" id="vOy-fi-j9E"/>
+            </constraints>
+            <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="132" y="-11.244377811094454"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

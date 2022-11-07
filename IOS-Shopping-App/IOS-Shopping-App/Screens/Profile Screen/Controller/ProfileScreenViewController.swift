@@ -17,10 +17,17 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .done, target: self, action: #selector(toBasket))
+        
         userInfo = getUserData()
         
         self.tableView.register(UINib(nibName: "CustomProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         
+    }
+    
+    @objc func toBasket() {
+        let basketViewController = BasketViewController()
+        self.present(basketViewController, animated: true)
     }
     
     func getUserData() -> User {

@@ -18,29 +18,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopkeep" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLY-N4-j6a">
-                                <rect key="frame" x="16" y="438" width="343" height="56"/>
+                                <rect key="frame" x="16" y="401.5" width="343" height="56"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="Jf4-72-9Yu"/>
+                                    <constraint firstAttribute="height" constant="56" id="gxr-BF-oP9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="37"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="playstore" highlightedImage="playstore" translatesAutoresizingMaskIntoConstraints="NO" id="9XO-ng-R0l">
-                                <rect key="frame" x="16" y="20" width="343" height="410"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cart.circle" catalog="system" highlightedImage="playstore" translatesAutoresizingMaskIntoConstraints="NO" id="9XO-ng-R0l">
+                                <rect key="frame" x="48" y="209.5" width="279" height="185"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemIndigoColor"/>
                         <constraints>
-                            <constraint firstItem="9XO-ng-R0l" firstAttribute="trailing" secondItem="KLY-N4-j6a" secondAttribute="trailing" id="4Oi-vz-o9i"/>
-                            <constraint firstItem="9XO-ng-R0l" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="MIR-hF-mkK"/>
-                            <constraint firstItem="9XO-ng-R0l" firstAttribute="leading" secondItem="KLY-N4-j6a" secondAttribute="leading" id="Rk7-xz-iE0"/>
-                            <constraint firstItem="9XO-ng-R0l" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="20" symbolic="YES" id="Sgh-VV-sAL"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KLY-N4-j6a" secondAttribute="bottom" constant="173" id="Voz-ar-e4l"/>
-                            <constraint firstItem="9XO-ng-R0l" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="huF-9f-efE"/>
-                            <constraint firstItem="KLY-N4-j6a" firstAttribute="top" secondItem="9XO-ng-R0l" secondAttribute="bottom" constant="8" symbolic="YES" id="zMQ-4X-kuu"/>
+                            <constraint firstItem="9XO-ng-R0l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="209" id="0Oo-F3-blR"/>
+                            <constraint firstItem="KLY-N4-j6a" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="BrS-Li-DxV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KLY-N4-j6a" secondAttribute="bottom" constant="209.5" id="DfX-DC-KGs"/>
+                            <constraint firstItem="KLY-N4-j6a" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="E0C-Cw-2Y0"/>
+                            <constraint firstItem="KLY-N4-j6a" firstAttribute="top" secondItem="9XO-ng-R0l" secondAttribute="bottom" constant="6.5" id="a9v-dH-GjM"/>
+                            <constraint firstItem="9XO-ng-R0l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="rJT-1m-WWT"/>
+                            <constraint firstItem="9XO-ng-R0l" firstAttribute="centerX" secondItem="KLY-N4-j6a" secondAttribute="centerX" id="rWL-QF-yBi"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -50,7 +50,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="playstore" width="512" height="512"/>
+        <image name="cart.circle" catalog="system" width="128" height="123"/>
+        <image name="playstore" width="128" height="128"/>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
