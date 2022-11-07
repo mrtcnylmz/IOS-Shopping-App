@@ -126,7 +126,14 @@ class AuthViewController: UIViewController {
                 "username": usernameTextField.text!,
             ]as [String: Any]
             
-            fireStore.collection("User_Infos").addDocument(data: userInfoDictionary){(error) in
+//            fireStore.collection("User_Infos").addDocument(data: userInfoDictionary){(error) in
+//                guard error == nil else {
+//                    AlertMaker.shared.basicAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+//                    return
+//                }
+//            }
+            
+            fireStore.collection("User_Infos").document((authResult?.user.uid)!).setData(userInfoDictionary){(error) in
                 guard error == nil else {
                     AlertMaker.shared.basicAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
                     return

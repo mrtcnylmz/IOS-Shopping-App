@@ -44,6 +44,18 @@ class ProductScreenViewController: UIViewController {
 
 extension ProductScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print(indexPath.row)
+        print(indexPath.item)
+        print(indexPath.section)
+        
+        let detailViewController = DetailViewController()
+        detailViewController.hidesBottomBarWhenPushed = true
+        detailViewController.product = self.productListViewModel!.productAtIndex(indexPath.item)
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.productListViewModel?.numberOfRowsInSection() ?? 0
     }
