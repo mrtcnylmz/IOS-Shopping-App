@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import Firebase
 
 class SearchScreenViewController: UIViewController {
     
     @IBOutlet weak var searchCollectionView: UICollectionView!
     @IBOutlet weak var searchSegmentedControl: UISegmentedControl!
+    
+    let userAuth = Auth.auth()
+    let fireStore = Firestore.firestore()
     
     var products : [Product]?
     
@@ -29,6 +33,9 @@ class SearchScreenViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .plain, target: self, action: #selector(toBasket))
         
+        let hideKeyboardTapRec = UITapGestureRecognizer(target: self, action: #selector(hideKeyb))
+        searchCollectionView.addGestureRecognizer(hideKeyboardTapRec)
+        
         searchController.searchBar.placeholder = "Products..."
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
@@ -40,9 +47,47 @@ class SearchScreenViewController: UIViewController {
         getData()
     }
     
+    // MARK: - toBasket
     @objc func toBasket() {
         let basketViewController = BasketViewController()
-        self.present(basketViewController, animated: true)
+        
+        getBasketData { basketEntryListViewModel in
+            basketViewController.basketEntryListViewModel = basketEntryListViewModel!
+            self.present(basketViewController, animated: true)
+        }
+    }
+    
+    //MARK: - getBasketData
+    func getBasketData(complation: @escaping (BasketEntryListViewModel?) -> Void) {
+        let basketViewController = BasketViewController()
+        let userDoc = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid)
+        let userBasket = userDoc.collection("current_basket")
+        var basketEntryArray: [BasketEntry] = []
+        var dataArr: [[String : Any]] = []
+        
+        userBasket.getDocuments { querySnapshot, error in
+            
+            guard error == nil else {
+                AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Network Error", okFunc: nil)
+                return
+            }
+            
+            for document in querySnapshot!.documents {
+                dataArr.append(document.data())
+            }
+            
+            for data in dataArr {
+                let basEnt = BasketEntry(productId: data["productId"] as! Int,
+                                         productName: data["productName"] as! String,
+                                         productQuantity: data["productQuantity"] as! Int,
+                                         productPrice: data["productPrice"] as! Double,
+                                         entryId: (data["productId"] as! Int).description)
+                basketEntryArray.append(basEnt)
+            }
+            
+            let basketEntryViewModel = BasketEntryListViewModel(basketEntryList: basketEntryArray)
+            complation(basketEntryViewModel)
+        }
     }
     
     // MARK: searchSegmentedControlAction
@@ -102,6 +147,11 @@ class SearchScreenViewController: UIViewController {
             searchController.searchBar.placeholder = "Women's Clothing..."
             return
         }
+    }
+    
+    // MARK: - Touch Keyboard Hide
+    @objc func hideKeyb(){
+        view.endEditing(true)
     }
     
 }

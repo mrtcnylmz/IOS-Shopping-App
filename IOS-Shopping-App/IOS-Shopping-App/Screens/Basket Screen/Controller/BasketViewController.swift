@@ -8,82 +8,95 @@
 import UIKit
 import Firebase
 
-class BasketViewController: UIViewController {
+class BasketViewController: UIViewController{
     
     @IBOutlet weak var BasketTableView: UITableView!
+    @IBOutlet weak var totalPriceLabel: UILabel!
     
     let userAuth = Auth.auth()
     let fireStore = Firestore.firestore()
     
-    var basketProducts : [BasketProduct] = []
-    
-    override var title : String?{
+    var basketEntryListViewModel : BasketEntryListViewModel?{
         didSet {
-            DispatchQueue.main.async {
-                self.BasketTableView.reloadData()
-            }
-        }
-    }
-    
-    private var basketItemListViewModel : BasketItemListViewModel?{
-        didSet {
-            print("didSet")
-            self.BasketTableView.reloadData()
+            self.BasketTableView?.reloadData()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Load")
         
+        self.BasketTableView?.reloadData()
         self.BasketTableView.register(UINib(nibName: "BasketTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         
-        getData()
+        getTotalPrice { amount in
+            self.totalPriceLabel.text = String(format: "%.2f", amount!)
+        }
+        
     }
     
-    func getData() {
-        
-        print("Get Data")
-        
-        let userDoc = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid)
-        
-        userDoc.getDocument { document, error in
-            if let document = document, document.exists {
-                for data in document.data()! {
-                    var item = BasketProduct(productId: Int(data.key)!, quantity: data.value as! Int)
-                    print("item: \(item)")
-                    self.basketProducts.append(item)
+    //MARK: - checkOutButtonAction
+    @IBAction func checkOutButtonAction(_ sender: UIButton) {
+        self.showIndicationSpinner()
+        getTotalPrice { amount in
+            self.totalPriceLabel.text = String(format: "%.2f", amount!)
+            self.removeIndicationSpinner()
+            AlertMaker.shared.basicCancelAlert(on: self, title: "Checkout", message: "Your total is \(amount!)$, do you wish to complete payment?") { _ in
+                self.fireStore.collection("User_Baskets").document(self.userAuth.currentUser!.uid).collection("current_basket").getDocuments { query, error in
+                    for doc in query!.documents {
+                        doc.reference.delete()
+                    }
                 }
-                print("basketProducts: \(self.basketProducts)")
-                self.basketItemListViewModel? = BasketItemListViewModel(basketProductList: self.basketProducts)
-                
+                AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Payment Successfull!") { _ in
+                    self.dismiss(animated: true)
+                }
             }
+        }
+    }
+    
+    func getTotalPrice(complation: @escaping (Double?) -> Void) {
+        var totalAmount : Double = 0.0
+        fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("current_basket").getDocuments { querySnapshot, error in
+            for doc in querySnapshot!.documents {
+                var amount = Double((doc.data()["productPrice"] as! Double) * (doc.data()["productQuantity"] as! Double))
+                totalAmount += amount
+            }
+            complation(totalAmount)
         }
     }
 }
+
+//MARK: - Extensions
 extension BasketViewController: UITableViewDataSource, UITableViewDelegate {
     
+    //MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Int-> \(self.basketProducts.count)")
-        return self.basketProducts.count ?? 0
+        return basketEntryListViewModel!.numberOfRowsInSection()
     }
     
+    //MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let basketProductViewModel = self.basketProducts[indexPath.item]
-        StoreAPI.shared.fetchProduct(productId: String(basketProductViewModel.productId)) { product, error in
-            
-        }
+        let basketProductViewModel = self.basketEntryListViewModel!.productAtIndex(indexPath.row)
+        totalPriceLabel.text = String(format: "%.2f", ((basketProductViewModel.productPrice * Double(basketProductViewModel.productQuantity)) + Double(totalPriceLabel.text!)!))
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BasketTableViewCell {
-            StoreAPI.shared.fetchProduct(productId: String(basketProductViewModel.productId)) { product, error in
-                self.title = product!.title
-            }
-            cell.productNameLabel.text = title
-            cell.productQuantityLabel.text = (String(basketProductViewModel.quantity))
+            cell.productNameLabel.text = basketProductViewModel.productName
+            cell.productQuantityLabel.text = basketProductViewModel.productQuantity.description
+            cell.stepper.value = Double(basketProductViewModel.productQuantity)
+            cell.productId = String(basketProductViewModel.productId)
+            cell.productPrice = basketProductViewModel.productPrice
+            cell.productPriceLabel.text = String(format: "%.2f", (Double(basketProductViewModel.productQuantity) * basketProductViewModel.productPrice)) + "$"
             return cell
         }
         return BasketTableViewCell()
     }
     
+    //MARK: - numberOfSections
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
+    //MARK: - titleForHeaderInSection
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        "Basket"
+    }
 }

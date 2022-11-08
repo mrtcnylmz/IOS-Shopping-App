@@ -21,6 +21,8 @@
 		37C7ED872917A9B6003C710F /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C7ED852917A9B6003C710F /* SearchCollectionViewCell.swift */; };
 		37C7ED882917A9B6003C710F /* SearchCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37C7ED862917A9B6003C710F /* SearchCollectionViewCell.xib */; };
 		37C7ED8A2917E232003C710F /* ActivityIndication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C7ED892917E232003C710F /* ActivityIndication.swift */; };
+		37C88F6529195BDB00AA2E7A /* BasketEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C88F6429195BDB00AA2E7A /* BasketEntry.swift */; };
+		37C88F6729195C9F00AA2E7A /* BasketEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C88F6629195C9F00AA2E7A /* BasketEntryViewModel.swift */; };
 		37E00E482915217B00C8B70C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 37E00E472915217B00C8B70C /* FirebaseAuth */; };
 		37E00E4A2915217B00C8B70C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 37E00E492915217B00C8B70C /* FirebaseFirestore */; };
 		37E00E4C2915217B00C8B70C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 37E00E4B2915217B00C8B70C /* FirebaseStorage */; };
@@ -87,6 +89,8 @@
 		37C7ED852917A9B6003C710F /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		37C7ED862917A9B6003C710F /* SearchCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCollectionViewCell.xib; sourceTree = "<group>"; };
 		37C7ED892917E232003C710F /* ActivityIndication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndication.swift; sourceTree = "<group>"; };
+		37C88F6429195BDB00AA2E7A /* BasketEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketEntry.swift; sourceTree = "<group>"; };
+		37C88F6629195C9F00AA2E7A /* BasketEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketEntryViewModel.swift; sourceTree = "<group>"; };
 		37E00E4D291525D000C8B70C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37E00E5029152D9900C8B70C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		37E00E5A29158DF900C8B70C /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
@@ -262,6 +266,7 @@
 				37FC1E142917012D0056B2EC /* UserViewModel.swift */,
 				37E00E5F2915E8A900C8B70C /* ProductViewModel.swift */,
 				3761A9192918C91F00A9AECE /* BasketItemViewModel.swift */,
+				37C88F6629195C9F00AA2E7A /* BasketEntryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -366,6 +371,7 @@
 				37FC1E12291700CC0056B2EC /* User.swift */,
 				3764A4E52913110E007FB31D /* Product.swift */,
 				37AEAE292918A86400025047 /* BasketItem.swift */,
+				37C88F6429195BDB00AA2E7A /* BasketEntry.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -516,8 +522,8 @@
 		37FC1E082916EACD0056B2EC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				37FC1E0A2916F3F60056B2EC /* CustomProfileTableViewCell.swift */,
 				37FC1DFB29169B8E0056B2EC /* ProfileScreenViewController.swift */,
+				37FC1E0A2916F3F60056B2EC /* CustomProfileTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -682,6 +688,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37C88F6729195C9F00AA2E7A /* BasketEntryViewModel.swift in Sources */,
 				37FC1DF529169B630056B2EC /* ProductScreenViewController.swift in Sources */,
 				3761A9172918C51F00A9AECE /* BasketTableViewCell.swift in Sources */,
 				37E522C72912AC4000BCCB8B /* ViewController.swift in Sources */,
@@ -705,6 +712,7 @@
 				37FC1E152917012D0056B2EC /* UserViewModel.swift in Sources */,
 				37FC1E13291700CC0056B2EC /* User.swift in Sources */,
 				37FC1E0C2916F3F60056B2EC /* CustomProfileTableViewCell.swift in Sources */,
+				37C88F6529195BDB00AA2E7A /* BasketEntry.swift in Sources */,
 				37AEAE2E2918AD8D00025047 /* BasketViewController.swift in Sources */,
 				37E00E5129152D9900C8B70C /* Alerts.swift in Sources */,
 			);

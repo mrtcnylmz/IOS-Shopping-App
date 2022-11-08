@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Product
+// MARK: - BasketProduct
 struct BasketProduct: Codable {
     let productId: Int
     let quantity: Int

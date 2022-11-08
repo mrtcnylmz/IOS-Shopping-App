@@ -36,73 +36,74 @@ class DetailViewController: UIViewController {
         productRatingLabel.text = String(repeating: "★", count: Int(product!.rating.rate)) +
         String(repeating: "☆", count: 5 - Int(product!.rating.rate)) +
         "(\(product!.rating.count))"
+        checkBasket()
     }
     
+    //MARK: - stepperAction
     @IBAction func stepperAction(_ sender: UIStepper) {
         productAmountLabel.text = String(Int(sender.value))
     }
     
+    //MARK: - checkBasket
+    func checkBasket() {
+        let docRef = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("current_basket").document(product!.id.description)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let amount = document.data()!["productQuantity"]
+                print("Amount: \(amount!)")
+                self.productAmountLabel.text = "\(amount!)"
+                self.stepper.value = Double(amount as! Int)
+                self.addToBasketButton.setTitle("Update The Basket", for: .normal)
+            }
+        }
+    }
+    
+    //MARK: - addToBasketButtonAction
     @IBAction func addToBasketButtonAction(_ sender: UIButton) {
-        self.showIndicationSpinner()
-        
-        let userDoc = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid)
-        
-        userDoc.getDocument { document, error in
-        outerloop: if let document = document, document.exists {
-            for data in document.data()!{
-                if data.key as! String == String(self.product!.id) {
-                    print("1")
-                    let newQuantity = data.value as! Int + Int(self.productAmountLabel.text!)!
-                    userDoc.setData([String(self.product!.id) : newQuantity],merge: true) { error in
+        if self.productAmountLabel.text == "0" {
+            let docRef = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("current_basket").document(product!.id.description)
+            
+            docRef.getDocument { (document, error) in
+               
+                if let document = document, document.exists {
+                    self.showIndicationSpinner()
+                    docRef.delete { error in
                         self.removeIndicationSpinner()
                         if error == nil {
-                            AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Items successfully added to basket!", okFunc: nil)
+                            AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Items removed from basket!") { _ in
+                                self.navigationController?.popViewController(animated: true)
+                            }
                         }else {
-                            AlertMaker.shared.basicAlert(on: self, title: "Error", message: "An error occured, please try again later!", okFunc: nil)
+                            AlertMaker.shared.basicAlert(on: self, title: "Error", message: "An error occured, please try again later!") { _ in
+                                self.navigationController?.popViewController(animated: true)
+                            }
                         }
                     }
-                    break outerloop
                 }
             }
-            userDoc.setData([String(self.product!.id) : Int(self.productAmountLabel.text!)],merge: true) { error in
+        }else {
+            self.showIndicationSpinner()
+            let userBasket = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("current_basket")
+            let basketEntrie = [
+                "productName": self.product!.name,
+                "productId": self.product!.id,
+                "productQuantity": Int(self.productAmountLabel.text!)!,
+                "productPrice": product?.price
+            ]as [String: Any]
+            
+            userBasket.document("\(self.product!.id)").setData(basketEntrie) { error in
                 self.removeIndicationSpinner()
                 if error == nil {
-                    AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Items successfully added to basket!", okFunc: nil)
+                    AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Basket Updated!") { _ in
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }else {
-                    AlertMaker.shared.basicAlert(on: self, title: "Error", message: "An error occured, please try again later!", okFunc: nil)
+                    AlertMaker.shared.basicAlert(on: self, title: "Error", message: "An error occured, please try again later!") { _ in
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
-        } else {
-            userDoc.setData([String(self.product!.id) : Int(self.productAmountLabel.text!)],merge: true) { error in
-                self.removeIndicationSpinner()
-                if error == nil {
-                    AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Items successfully added to basket!", okFunc: nil)
-                }else {
-                    AlertMaker.shared.basicAlert(on: self, title: "Error", message: "An error occured, please try again later!", okFunc: nil)
-                }
-                return
-            }
         }
-        }
-        //        fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("basket").addDocument(data: productBasketDictionary){ error in
-        //            if error == nil {
-        //                AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Items successfully added to basket!", okFunc: nil)
-        //            }else {
-        //                AlertMaker.shared.basicAlert(on: self, title: "Error", message: "An error occured, please try again later!", okFunc: nil)
-        //            }
-        //        }
     }
 }
-//        fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("basket").getDocuments { (snapshot, error) in
-//                if let error = error {
-//                    print(error)
-//                    return
-//                } else {
-//                    var baskett = []
-//                    for document in snapshot!.documents {
-//                        let data = document.data()
-//                        baskett.append(data)
-//                    }
-//                    print(baskett)
-//                }
-//            }

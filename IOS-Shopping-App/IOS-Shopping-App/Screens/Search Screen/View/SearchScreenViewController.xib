@@ -34,7 +34,7 @@
                         <action selector="searchSegmentedControlAction:" destination="-1" eventType="valueChanged" id="A07-t4-4vV"/>
                     </connections>
                 </segmentedControl>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="CBm-Tv-N6Q">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="CBm-Tv-N6Q">
                     <rect key="frame" x="16" y="39" width="343" height="628"/>
                     <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                     <color key="tintColor" systemColor="systemIndigoColor"/>

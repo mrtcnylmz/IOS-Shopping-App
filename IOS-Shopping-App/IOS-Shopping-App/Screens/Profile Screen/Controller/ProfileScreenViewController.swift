@@ -12,6 +12,9 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var tableView: UITableView!
     
+    let userAuth = Auth.auth()
+    let fireStore = Firestore.firestore()
+    
     var userInfo : User?
     
     override func viewDidLoad() {
@@ -25,11 +28,50 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         
     }
     
+    // MARK: - toBasket
     @objc func toBasket() {
         let basketViewController = BasketViewController()
-        self.present(basketViewController, animated: true)
+        
+        getBasketData { basketEntryListViewModel in
+            basketViewController.basketEntryListViewModel = basketEntryListViewModel!
+            self.present(basketViewController, animated: true)
+        }
     }
     
+    //MARK: - getBasketData
+    func getBasketData(complation: @escaping (BasketEntryListViewModel?) -> Void) {
+        let basketViewController = BasketViewController()
+        let userDoc = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid)
+        let userBasket = userDoc.collection("current_basket")
+        var basketEntryArray: [BasketEntry] = []
+        var dataArr: [[String : Any]] = []
+        
+        userBasket.getDocuments { querySnapshot, error in
+            
+            guard error == nil else {
+                AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Network Error", okFunc: nil)
+                return
+            }
+            
+            for document in querySnapshot!.documents {
+                dataArr.append(document.data())
+            }
+            
+            for data in dataArr {
+                let basEnt = BasketEntry(productId: data["productId"] as! Int,
+                                         productName: data["productName"] as! String,
+                                         productQuantity: data["productQuantity"] as! Int,
+                                         productPrice: data["productPrice"] as! Double,
+                                         entryId: (data["productId"] as! Int).description)
+                basketEntryArray.append(basEnt)
+            }
+            
+            let basketEntryViewModel = BasketEntryListViewModel(basketEntryList: basketEntryArray)
+            complation(basketEntryViewModel)
+        }
+    }
+    
+    // MARK: - getUserData
     func getUserData() -> User {
         var user : User?
         if let data = UserDefaults.standard.data(forKey: "currentUserInfo") {
@@ -38,6 +80,9 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         return user!
     }
     
+    
+    
+    // MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomProfileTableViewCell {
             
@@ -79,6 +124,7 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         return CustomProfileTableViewCell()
     }
     
+    // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -88,10 +134,12 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    // MARK: - numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
     
+    // MARK: - titleForHeaderInSection
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
@@ -101,6 +149,7 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    // MARK: - didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1{
             switch indexPath.row {
@@ -112,24 +161,24 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    // MARK: - signOutButtonAction
     @IBAction func signOutButtonAction(_ sender: Any) {
         
         AlertMaker.shared.basicCancelAlert(on: self, title: "Signing Out", message: "Are you sure you want to sign out?") { _ in
             do {
                 try Auth.auth().signOut()
                 UserDefaults.standard.set(nil, forKey: "currentUserInfo")
-                print("Sign Out")
                 let authViewController = AuthViewController(nibName: "AuthViewController", bundle: nil)
                 authViewController.modalPresentationStyle = .fullScreen
                 authViewController.modalTransitionStyle = .coverVertical
                 self.present(authViewController, animated: true, completion: nil)
-                // TODO: - Make alerts inc. catch
             }catch {
                 AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Failed to Sign Out!", okFunc: nil)
             }
         }
     }
     
+    // MARK: - passwordReset
     func passwordReset() {
         AlertMaker.shared.basicCancelAlert(on: self, title: "Password Reset", message: "Are you sure you want to reset your password?") { _ in
             Auth.auth().sendPasswordReset(withEmail: (Auth.auth().currentUser?.email)!) { error in
