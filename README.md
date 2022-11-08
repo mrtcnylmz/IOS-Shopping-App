@@ -26,6 +26,10 @@ List the ready features here:
 
 ## Screenshots
 
+| Login | Register |
+| ------------- | ------------- |
+| <img src="https://user-images.githubusercontent.com/49480936/200582613-e623b576-7291-4fd0-92b8-77ca4e7f506f.PNG" width=30% height=30%>  | <img src="https://user-images.githubusercontent.com/49480936/200582614-d2301aab-c864-44de-b146-5a2c004810f5.PNG" width=30% height=30%>  |
+
 > Login
 
 <img src="https://user-images.githubusercontent.com/49480936/200582613-e623b576-7291-4fd0-92b8-77ca4e7f506f.PNG" width=30% height=30%>
