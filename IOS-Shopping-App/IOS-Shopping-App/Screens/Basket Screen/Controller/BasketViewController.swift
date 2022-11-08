@@ -37,11 +37,9 @@ class BasketViewController: UIViewController{
     
     //MARK: - checkOutButtonAction
     @IBAction func checkOutButtonAction(_ sender: UIButton) {
-        self.showIndicationSpinner()
         getTotalPrice { amount in
             self.totalPriceLabel.text = String(format: "%.2f", amount!)
-            self.removeIndicationSpinner()
-            AlertMaker.shared.basicCancelAlert(on: self, title: "Checkout", message: "Your total is \(amount!)$, do you wish to complete payment?") { _ in
+            AlertMaker.shared.basicCancelAlert(on: self, title: "Checkout", message: "Your total is \(String(format: "%.2f", amount!))$, do you wish to complete payment?") { _ in
                 self.fireStore.collection("User_Baskets").document(self.userAuth.currentUser!.uid).collection("current_basket").getDocuments { query, error in
                     for doc in query!.documents {
                         doc.reference.delete()
