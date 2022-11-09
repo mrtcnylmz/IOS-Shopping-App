@@ -4,6 +4,7 @@ A shopping app made with UIKit on Swift using Firebase, feed with Fake Store API
 
 ## General Information
 - This e-commerce project takes pseudo-real store data from Fake Store API and build a store interface.
+- Users are welcomed by an onboarding page.
 - Users may browse general product page, search for specific products or categorize their browsing.
 - Products have detailed pages with their rating, prices and descriptions.
 - Users have baskets and basket data is saved in the Firebase database, users may visit their basket later to keep shopping, change the quantities of products in basket or delete them for basket altogether.
@@ -11,6 +12,7 @@ A shopping app made with UIKit on Swift using Firebase, feed with Fake Store API
 
 ## Features
 List the ready features here:
+- Onboarding Page
 - User Register And Login
 - Products Page
 - Product Search and Categorising Page
@@ -25,6 +27,10 @@ List the ready features here:
 - REST API
 
 ## Screenshots
+
+> Onboarding
+
+<img src="https://user-images.githubusercontent.com/49480936/200719624-fb51965d-5295-4fd1-a5dd-a33c9c928e9c.PNG" width=30% height=30%>
 
 > Login
 
