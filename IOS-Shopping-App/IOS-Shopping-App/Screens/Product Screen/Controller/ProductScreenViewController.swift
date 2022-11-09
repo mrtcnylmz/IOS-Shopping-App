@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class ProductScreenViewController: UIViewController {
+final class ProductScreenViewController: UIViewController {
     
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
@@ -23,6 +23,7 @@ class ProductScreenViewController: UIViewController {
         }
     }
     
+    //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +40,6 @@ class ProductScreenViewController: UIViewController {
                 AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Network having issues, try again.", okFunc: nil)
                 return
             }
-            
             if let productList = productList {
                 self.productListViewModel = ProductListViewModel(productList: productList)
             }
@@ -50,31 +50,27 @@ class ProductScreenViewController: UIViewController {
     @objc func toBasket() {
         let basketViewController = BasketViewController()
         
-        getBasketData { basketEntryListViewModel in
+        getBasketData { [weak self] basketEntryListViewModel in
             basketViewController.basketEntryListViewModel = basketEntryListViewModel!
-            self.present(basketViewController, animated: true)
+            self?.present(basketViewController, animated: true)
         }
     }
     
     //MARK: - getBasketData
     func getBasketData(complation: @escaping (BasketEntryListViewModel?) -> Void) {
-        let basketViewController = BasketViewController()
         let userDoc = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid)
         let userBasket = userDoc.collection("current_basket")
         var basketEntryArray: [BasketEntry] = []
         var dataArr: [[String : Any]] = []
         
         userBasket.getDocuments { querySnapshot, error in
-            
             guard error == nil else {
                 AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Network Error", okFunc: nil)
                 return
             }
-            
             for document in querySnapshot!.documents {
                 dataArr.append(document.data())
             }
-            
             for data in dataArr {
                 let basEnt = BasketEntry(productId: data["productId"] as! Int,
                                          productName: data["productName"] as! String,
@@ -83,7 +79,6 @@ class ProductScreenViewController: UIViewController {
                                          entryId: (data["productId"] as! Int).description)
                 basketEntryArray.append(basEnt)
             }
-            
             let basketEntryViewModel = BasketEntryListViewModel(basketEntryList: basketEntryArray)
             complation(basketEntryViewModel)
         }
@@ -93,7 +88,7 @@ class ProductScreenViewController: UIViewController {
 // MARK: -Extension
 extension ProductScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    // MARK: - didSelectItemAt
+    // MARK: - DidSelectItemAt
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = DetailViewController()
         detailViewController.hidesBottomBarWhenPushed = true
@@ -101,12 +96,12 @@ extension ProductScreenViewController: UICollectionViewDelegate, UICollectionVie
         navigationController?.pushViewController(detailViewController, animated: true)
     }
     
-    // MARK: - numberOfItemsInSection
+    // MARK: - NumberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.productListViewModel?.numberOfRowsInSection() ?? 0
     }
     
-    // MARK: - cellForItemAt
+    // MARK: - CellForItemAt
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchCollectionCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
         
@@ -124,17 +119,16 @@ extension ProductScreenViewController: UICollectionViewDelegate, UICollectionVie
         cell.layer.shadowRadius = 1.25
         cell.layer.shadowOpacity = 0.75
         cell.layer.masksToBounds = false
-        
         cell.backgroundColor = .white
         return cell
     }
     
-    // MARK: - insetForSectionAt
+    // MARK: - InsetForSectionAt
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1.0, left: 1.0, bottom: 1.0, right: 1.0)
     }
     
-    // MARK: - sizeForItemAt
+    // MARK: - SizeForItemAt
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let gridLayout = collectionViewLayout as! UICollectionViewFlowLayout
         let widthPerItem = collectionView.frame.width / 2 - gridLayout.minimumInteritemSpacing

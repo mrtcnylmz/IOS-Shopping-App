@@ -22,21 +22,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let currentUser = Auth.auth().currentUser
         if currentUser != nil{
-            print("User Logged")
-            //let board = UIStoryboard(name: "Main", bundle: nil)
-            //let tabBar = board.instantiateViewController(identifier: "tabBar") as! UITabBarController
             let tabBar = TabBarViewController()
-            //let window = UIWindow(windowScene: windowScene)
             window!.rootViewController = tabBar
             window!.makeKeyAndVisible()
-            //self.window = window
         }else {
-            print("No User Logged")
             let authScreen = AuthViewController()
-            //let window = UIWindow(windowScene: windowScene)
             window!.rootViewController = authScreen
             window!.makeKeyAndVisible()
-            //self.window = window
         }
     }
 

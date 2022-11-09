@@ -11,6 +11,7 @@ var aView : UIView?
 
 extension UIViewController {
     
+    //MARK: - Show Indication
     func showIndicationSpinner() {
         aView = UIView(frame: self.view.frame)
         aView?.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.95)
@@ -27,9 +28,9 @@ extension UIViewController {
         }
     }
     
+    //MARK: - Remove Indication
     func removeIndicationSpinner() {
         aView?.removeFromSuperview()
         aView = nil
     }
 }
-

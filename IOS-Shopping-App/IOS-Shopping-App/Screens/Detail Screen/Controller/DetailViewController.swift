@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
     @IBOutlet weak var detailImageView: UIImageView!
     @IBOutlet weak var productNameLabel: UILabel!
@@ -22,9 +22,9 @@ class DetailViewController: UIViewController {
     var product : ProductViewModel?
     let userAuth = Auth.auth()
     let fireStore = Firestore.firestore()
-    
     var itemm : BasketProduct?
     
+    //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,44 +39,43 @@ class DetailViewController: UIViewController {
         checkBasket()
     }
     
-    //MARK: - stepperAction
+    //MARK: - StepperAction
     @IBAction func stepperAction(_ sender: UIStepper) {
         productAmountLabel.text = String(Int(sender.value))
     }
     
-    //MARK: - checkBasket
+    //MARK: - CheckBasket
     func checkBasket() {
         let docRef = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("current_basket").document(product!.id.description)
         
-        docRef.getDocument { (document, error) in
+        docRef.getDocument { [weak self] (document, error) in
             if let document = document, document.exists {
                 let amount = document.data()!["productQuantity"]
-                print("Amount: \(amount!)")
-                self.productAmountLabel.text = "\(amount!)"
-                self.stepper.value = Double(amount as! Int)
-                self.addToBasketButton.setTitle("Update The Basket", for: .normal)
+                self?.productAmountLabel.text = "\(amount!)"
+                self?.stepper.value = Double(amount as! Int)
+                self?.addToBasketButton.setTitle("Update The Basket", for: .normal)
             }
         }
     }
     
-    //MARK: - addToBasketButtonAction
+    //MARK: - AddToBasketButtonAction
     @IBAction func addToBasketButtonAction(_ sender: UIButton) {
         if self.productAmountLabel.text == "0" {
             let docRef = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("current_basket").document(product!.id.description)
             
-            docRef.getDocument { (document, error) in
-               
+            docRef.getDocument { [weak self] (document, error) in
+                
                 if let document = document, document.exists {
-                    self.showIndicationSpinner()
+                    self?.showIndicationSpinner()
                     docRef.delete { error in
-                        self.removeIndicationSpinner()
+                        self?.removeIndicationSpinner()
                         if error == nil {
-                            AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Items removed from basket!") { _ in
-                                self.navigationController?.popViewController(animated: true)
+                            AlertMaker.shared.basicAlert(on: self!, title: "Success", message: "Items removed from basket!") { _ in
+                                self?.navigationController?.popViewController(animated: true)
                             }
                         }else {
-                            AlertMaker.shared.basicAlert(on: self, title: "Error", message: "An error occured, please try again later!") { _ in
-                                self.navigationController?.popViewController(animated: true)
+                            AlertMaker.shared.basicAlert(on: self!, title: "Error", message: "An error occured, please try again later!") { _ in
+                                self?.navigationController?.popViewController(animated: true)
                             }
                         }
                     }
@@ -86,21 +85,21 @@ class DetailViewController: UIViewController {
             self.showIndicationSpinner()
             let userBasket = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("current_basket")
             let basketEntrie = [
-                "productName": self.product!.name,
-                "productId": self.product!.id,
+                "productName": product!.name,
+                "productId": product!.id,
                 "productQuantity": Int(self.productAmountLabel.text!)!,
-                "productPrice": product?.price
+                "productPrice": product!.price
             ]as [String: Any]
             
-            userBasket.document("\(self.product!.id)").setData(basketEntrie) { error in
-                self.removeIndicationSpinner()
+            userBasket.document("\(self.product!.id)").setData(basketEntrie, merge: true) { [weak self] error in
+                self?.removeIndicationSpinner()
                 if error == nil {
-                    AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Basket Updated!") { _ in
-                        self.navigationController?.popViewController(animated: true)
+                    AlertMaker.shared.basicAlert(on: self!, title: "Success", message: "Basket Updated!") { _ in
+                        self?.navigationController?.popViewController(animated: true)
                     }
                 }else {
-                    AlertMaker.shared.basicAlert(on: self, title: "Error", message: "An error occured, please try again later!") { _ in
-                        self.navigationController?.popViewController(animated: true)
+                    AlertMaker.shared.basicAlert(on: self!, title: "Error", message: "An error occured, please try again later!") { _ in
+                        self?.navigationController?.popViewController(animated: true)
                     }
                 }
             }

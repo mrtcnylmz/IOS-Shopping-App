@@ -8,54 +8,47 @@
 import UIKit
 import Firebase
 
-class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+final class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     let userAuth = Auth.auth()
     let fireStore = Firestore.firestore()
-    
     var userInfo : User?
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .done, target: self, action: #selector(toBasket))
-        
         userInfo = getUserData()
-        
         self.tableView.register(UINib(nibName: "CustomProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
-        
     }
     
-    // MARK: - toBasket
+    // MARK: - To Basket
     @objc func toBasket() {
         let basketViewController = BasketViewController()
         
-        getBasketData { basketEntryListViewModel in
+        getBasketData { [weak self] basketEntryListViewModel in
             basketViewController.basketEntryListViewModel = basketEntryListViewModel!
-            self.present(basketViewController, animated: true)
+            self!.present(basketViewController, animated: true)
         }
     }
     
-    //MARK: - getBasketData
+    //MARK: - GetBasketData
     func getBasketData(complation: @escaping (BasketEntryListViewModel?) -> Void) {
-        let basketViewController = BasketViewController()
         let userDoc = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid)
         let userBasket = userDoc.collection("current_basket")
         var basketEntryArray: [BasketEntry] = []
         var dataArr: [[String : Any]] = []
         
-        userBasket.getDocuments { querySnapshot, error in
-            
+        userBasket.getDocuments { [weak self] querySnapshot, error in
             guard error == nil else {
-                AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Network Error", okFunc: nil)
+                AlertMaker.shared.basicAlert(on: self!, title: "Error", message: "Network Error", okFunc: nil)
                 return
             }
-            
             for document in querySnapshot!.documents {
-                dataArr.append(document.data())
-            }
+                dataArr.append(document.data())}
             
             for data in dataArr {
                 let basEnt = BasketEntry(productId: data["productId"] as! Int,
@@ -65,13 +58,12 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
                                          entryId: (data["productId"] as! Int).description)
                 basketEntryArray.append(basEnt)
             }
-            
             let basketEntryViewModel = BasketEntryListViewModel(basketEntryList: basketEntryArray)
             complation(basketEntryViewModel)
         }
     }
     
-    // MARK: - getUserData
+    // MARK: - GetUserData
     func getUserData() -> User {
         var user : User?
         if let data = UserDefaults.standard.data(forKey: "currentUserInfo") {
@@ -80,12 +72,9 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         return user!
     }
     
-    
-    
-    // MARK: - cellForRowAt
+    // MARK: - CellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomProfileTableViewCell {
-            
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
@@ -112,6 +101,11 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
                     cell.titleLabel.text = "Reset Password"
                     cell.imageView?.image = UIImage(systemName: "key")
                     return cell
+                case 1:
+                    cell.subtitleLabel.text = ""
+                    cell.titleLabel.text = "Reset Onboarding"
+                    cell.imageView?.image = UIImage(systemName: "questionmark.circle")
+                    return cell
                 default:
                     cell.subtitleLabel.text = ""
                     cell.titleLabel.text = "Sign Out"
@@ -124,22 +118,22 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         return CustomProfileTableViewCell()
     }
     
-    // MARK: - numberOfRowsInSection
+    // MARK: - NumberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 3
         default:
-            return 2
+            return 3
         }
     }
     
-    // MARK: - numberOfSections
+    // MARK: - NumberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
     
-    // MARK: - titleForHeaderInSection
+    // MARK: - TitleForHeaderInSection
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
@@ -149,21 +143,27 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
-    // MARK: - didSelectRowAt
+    // MARK: - Did Select Row At
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1{
             switch indexPath.row {
             case 0:
                 passwordReset()
+            case 1:
+                UserDefaults.standard.set(false, forKey: "isOnboardingShown")
+                let onboardingViewController = OnboardingViewController()
+                onboardingViewController.hidesBottomBarWhenPushed = true
+                onboardingViewController.navigationItem.setHidesBackButton(true, animated: false)
+                onboardingViewController.modalPresentationStyle = .formSheet
+                navigationController?.present(onboardingViewController, animated: true)
             default:
                 signOutButtonAction(0)
             }
         }
     }
     
-    // MARK: - signOutButtonAction
+    // MARK: - SignOutButtonAction
     @IBAction func signOutButtonAction(_ sender: Any) {
-        
         AlertMaker.shared.basicCancelAlert(on: self, title: "Signing Out", message: "Are you sure you want to sign out?") { _ in
             do {
                 try Auth.auth().signOut()
@@ -178,14 +178,14 @@ class ProfileScreenViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
-    // MARK: - passwordReset
+    // MARK: - Password Reset
     func passwordReset() {
         AlertMaker.shared.basicCancelAlert(on: self, title: "Password Reset", message: "Are you sure you want to reset your password?") { _ in
-            Auth.auth().sendPasswordReset(withEmail: (Auth.auth().currentUser?.email)!) { error in
+            Auth.auth().sendPasswordReset(withEmail: (Auth.auth().currentUser?.email)!) { [weak self] error in
                 if error != nil{
-                    AlertMaker.shared.basicAlert(on: self, title: "⚠️ Error", message: error?.localizedDescription ?? "Failure.", okFunc: nil)
+                    AlertMaker.shared.basicAlert(on: self!, title: "⚠️ Error", message: error?.localizedDescription ?? "Failure.", okFunc: nil)
                 }else {
-                    AlertMaker.shared.basicAlert(on: self, title: "Success", message: "Please check your email for further steps.", okFunc: nil)
+                    AlertMaker.shared.basicAlert(on: self!, title: "Success", message: "Please check your email for further steps.", okFunc: nil)
                 }
             }
         }
