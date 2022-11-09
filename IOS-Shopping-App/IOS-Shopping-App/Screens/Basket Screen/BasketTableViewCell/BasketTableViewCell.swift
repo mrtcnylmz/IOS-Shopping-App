@@ -8,8 +8,8 @@
 import UIKit
 import Firebase
 
-class BasketTableViewCell: UITableViewCell {
-
+final class BasketTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productQuantityLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
@@ -21,12 +21,13 @@ class BasketTableViewCell: UITableViewCell {
     var productId: String?
     var productPrice: Double?
     
+    //MARK: - AwakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
     }
-
+    
+    //MARK: - StepperAction
     @IBAction func stepperAction(_ sender: Any) {
         let stepperValue = Int(stepper.value)
         let userBasket = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid).collection("current_basket")
@@ -39,9 +40,10 @@ class BasketTableViewCell: UITableViewCell {
             userBasket.document(productId!).setData(["productQuantity" : stepperValue],merge: true)
         }
     }
+    
+    //MARK: - SetSelected
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 }

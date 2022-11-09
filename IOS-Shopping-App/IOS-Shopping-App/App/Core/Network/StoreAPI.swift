@@ -10,6 +10,7 @@ import Foundation
 final class StoreAPI {
     static let shared = StoreAPI()
     
+    //MARK: - FetchProducts
     func fetchProducts(complation: @escaping ([Product]?,Error?) -> Void) {
         let url = URL(string: "https://fakestoreapi.com/products")
         
@@ -25,12 +26,13 @@ final class StoreAPI {
             guard data != nil else {
                 fatalError("No Data!")
             }
-        
+            
             let productList = try? JSONDecoder().decode([Product].self, from: data!)
             complation(productList,nil)
         }.resume()
     }
     
+    //MARK: - FetchProduct
     func fetchProduct(productId : String, complation: @escaping (Product?,Error?) -> Void) {
         let url = URL(string: "https://fakestoreapi.com/products/\(productId)")
         
@@ -46,12 +48,14 @@ final class StoreAPI {
             guard data != nil else {
                 fatalError("No Data!")
             }
-        
+            
             let product = try? JSONDecoder().decode(Product.self, from: data!)
             complation(product, nil)
         }.resume()
     }
     
+    
+    //MARK: - FetchProductsByCatagory
     func fetchProductsByCatagory(productCatagory : String, complation: @escaping ([Product]?,Error?) -> Void) {
         let url = URL(string: "https://fakestoreapi.com/products/category/" + productCatagory)
         
@@ -67,7 +71,7 @@ final class StoreAPI {
             guard data != nil else {
                 fatalError("No Data!")
             }
-        
+            
             let productList = try? JSONDecoder().decode([Product].self, from: data!)
             complation(productList,nil)
         }.resume()

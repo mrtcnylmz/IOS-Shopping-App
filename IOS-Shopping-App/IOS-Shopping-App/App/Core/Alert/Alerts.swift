@@ -12,6 +12,7 @@ final class AlertMaker{
     
     static let shared = AlertMaker()
     
+    //MARK: BasicAlert
     func basicAlert(`on` controller: UIViewController, title : String, message : String, okFunc : ((UIAlertAction) -> Void)?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: okFunc)
@@ -19,6 +20,7 @@ final class AlertMaker{
         controller.present(alert, animated: true)
     }
     
+    //MARK: BasicCancelAlert
     func basicCancelAlert(`on` controller: UIViewController, title : String, message : String, okFunc : ((UIAlertAction) -> Void)?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: okFunc)

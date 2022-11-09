@@ -8,16 +8,14 @@
 import UIKit
 import Firebase
 
-class SearchScreenViewController: UIViewController {
+final class SearchScreenViewController: UIViewController {
     
     @IBOutlet weak var searchCollectionView: UICollectionView!
     @IBOutlet weak var searchSegmentedControl: UISegmentedControl!
     
     let userAuth = Auth.auth()
     let fireStore = Firestore.firestore()
-    
     var products : [Product]?
-    
     let searchController = UISearchController()
     
     private var productListViewModel : ProductListViewModel?{
@@ -28,6 +26,7 @@ class SearchScreenViewController: UIViewController {
         }
     }
     
+    //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,28 +46,27 @@ class SearchScreenViewController: UIViewController {
         getData()
     }
     
-    // MARK: - toBasket
+    // MARK: - To Basket
     @objc func toBasket() {
         let basketViewController = BasketViewController()
         
-        getBasketData { basketEntryListViewModel in
+        getBasketData { [weak self] basketEntryListViewModel in
             basketViewController.basketEntryListViewModel = basketEntryListViewModel!
-            self.present(basketViewController, animated: true)
+            self?.present(basketViewController, animated: true)
         }
     }
     
-    //MARK: - getBasketData
+    //MARK: - Get Basket Data
     func getBasketData(complation: @escaping (BasketEntryListViewModel?) -> Void) {
-        let basketViewController = BasketViewController()
         let userDoc = fireStore.collection("User_Baskets").document(userAuth.currentUser!.uid)
         let userBasket = userDoc.collection("current_basket")
         var basketEntryArray: [BasketEntry] = []
         var dataArr: [[String : Any]] = []
         
-        userBasket.getDocuments { querySnapshot, error in
+        userBasket.getDocuments { [weak self] querySnapshot, error in
             
             guard error == nil else {
-                AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Network Error", okFunc: nil)
+                AlertMaker.shared.basicAlert(on: self!, title: "Error", message: "Network Error", okFunc: nil)
                 return
             }
             
@@ -90,40 +88,40 @@ class SearchScreenViewController: UIViewController {
         }
     }
     
-    // MARK: searchSegmentedControlAction
+    // MARK: SearchSegmentedControlAction
     @IBAction func searchSegmentedControlAction(_ sender: UISegmentedControl) {
         getData()
     }
     
     // MARK: getProducts
     func getProducts() {
-        StoreAPI.shared.fetchProducts { productList, error in
+        StoreAPI.shared.fetchProducts { [weak self] productList, error in
             guard error == nil else {
-                AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Network having issues, try again.", okFunc: nil)
+                AlertMaker.shared.basicAlert(on: self!, title: "Error", message: "Network having issues, try again.", okFunc: nil)
                 return
             }
             if let productList = productList {
-                self.productListViewModel = ProductListViewModel(productList: productList)
-                self.products = productList
+                self!.productListViewModel = ProductListViewModel(productList: productList)
+                self?.products = productList
             }
         }
     }
     
-    // MARK: getProductsByCatagory
+    // MARK: GetProductsByCatagory
     func getProductsByCatagory(catagory : String) {
-        StoreAPI.shared.fetchProductsByCatagory(productCatagory: catagory) { productList, error in
+        StoreAPI.shared.fetchProductsByCatagory(productCatagory: catagory) { [weak self] productList, error in
             guard error == nil else {
-                AlertMaker.shared.basicAlert(on: self, title: "Error", message: "Network having issues, try again.", okFunc: nil)
+                AlertMaker.shared.basicAlert(on: self!, title: "Error", message: "Network having issues, try again.", okFunc: nil)
                 return
             }
             if let productList = productList {
-                self.productListViewModel = ProductListViewModel(productList: productList)
-                self.products = productList
+                self?.productListViewModel = ProductListViewModel(productList: productList)
+                self?.products = productList
             }
         }
     }
     
-    // MARK: getData
+    // MARK: GetData
     func getData() {
         switch searchSegmentedControl.selectedSegmentIndex{
         case 0:
@@ -153,21 +151,17 @@ class SearchScreenViewController: UIViewController {
     @objc func hideKeyb(){
         view.endEditing(true)
     }
-    
 }
 
-// MARK: - UISearchResultsUpdating
+// MARK: - Extension UISearchResultsUpdating
 extension SearchScreenViewController: UISearchResultsUpdating {
     
+    // MARK: - UpdateSearchResults
     func updateSearchResults(for searchController: UISearchController) {
-        
         var filteredProductList : [Product] = []
-        
         if let text = searchController.searchBar.text, text.count > 1 {
             for product in products! {
-                if product.title.contains(text) {
-                    filteredProductList.append(product)
-                }
+                if product.title.contains(text) { filteredProductList.append(product) }
             }
             self.productListViewModel = ProductListViewModel(productList: filteredProductList)
         }else if searchController.searchBar.text!.isEmpty as Bool {
@@ -176,12 +170,15 @@ extension SearchScreenViewController: UISearchResultsUpdating {
     }
 }
 
-// MARK: - UICollectionView
+// MARK: - Extension UICollectionView
 extension SearchScreenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    //MARK: - NumberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.productListViewModel?.numberOfRowsInSection() ?? 0
     }
     
+    //MARK: - DidSelectItemAt
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = DetailViewController()
         detailViewController.hidesBottomBarWhenPushed = true
@@ -189,6 +186,7 @@ extension SearchScreenViewController: UICollectionViewDelegate, UICollectionView
         navigationController?.pushViewController(detailViewController, animated: true)
     }
     
+    //MARK: - CellForItemAt
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchCollectionCell", for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
         
@@ -210,10 +208,12 @@ extension SearchScreenViewController: UICollectionViewDelegate, UICollectionView
         return cell
     }
     
+    //MARK: - InsetForSectionAt
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1.0, left: 1.0, bottom: 1.0, right: 1.0)
     }
     
+    //MARK: - SizeForItemAt
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let gridLayout = collectionViewLayout as! UICollectionViewFlowLayout
         let widthPerItem = collectionView.frame.width / 2 - gridLayout.minimumInteritemSpacing

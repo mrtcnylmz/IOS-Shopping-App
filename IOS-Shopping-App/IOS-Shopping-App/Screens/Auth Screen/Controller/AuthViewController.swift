@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class AuthViewController: UIViewController {
+final class AuthViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var segmentControl: UISegmentedControl!
@@ -21,6 +21,7 @@ class AuthViewController: UIViewController {
     let userAuth = Auth.auth()
     let fireStore = Firestore.firestore()
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +29,14 @@ class AuthViewController: UIViewController {
         
         let hideKeyboardTapRec = UITapGestureRecognizer(target: self, action: #selector(hideKeyb))
         view.addGestureRecognizer(hideKeyboardTapRec)
-        
+    }
+    
+    // MARK: - ViewDidAppear
+    override func viewDidAppear(_ animated: Bool) {
+        guard let isOnboardingShown = UserDefaults.standard.value(forKey: "isOnboardingShown"), isOnboardingShown as! Bool == true else {
+            onboarding()
+            return
+        }
     }
     
     // MARK: - Login Form
@@ -36,8 +44,10 @@ class AuthViewController: UIViewController {
         usernameTextField.isHidden = true
         passwordRepeatTextField.isHidden = true
         titleLabel.text = "Sign In!"
+        titleLabel.textColor = UIColor(named: "AccentColor")
         signButton.setTitle("Login", for: .normal)
-        signButton.tintColor = UIColor(named: "AccentColor")
+        signButton.backgroundColor = UIColor(named: "AccentColor")
+        signButton.tintColor = .white
     }
     
     // MARK: - Registery Form
@@ -45,8 +55,10 @@ class AuthViewController: UIViewController {
         usernameTextField.isHidden = false
         passwordRepeatTextField.isHidden = false
         titleLabel.text = "Register!"
+        titleLabel.textColor = UIColor(named: "Color-2")
         signButton.setTitle("Register", for: .normal)
-        signButton.tintColor = UIColor(named: "Color-2")
+        signButton.backgroundColor = UIColor(named: "Color-2")
+        signButton.tintColor = .white
     }
     
     // MARK: - Segmented Control
@@ -72,10 +84,10 @@ class AuthViewController: UIViewController {
     //MARK: - Login
     func login(){
         self.showIndicationSpinner()
-        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { authResult, error in
-            self.removeIndicationSpinner()
+        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] authResult, error in
+            self!.removeIndicationSpinner()
             guard error == nil else {
-                AlertMaker.shared.basicAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                AlertMaker.shared.basicAlert(on: self!, title: "Error", message: error!.localizedDescription, okFunc: nil)
                 return
             }
             
@@ -91,7 +103,7 @@ class AuthViewController: UIViewController {
                 let tabBar = TabBarViewController()
                 tabBar.modalTransitionStyle = .coverVertical
                 tabBar.modalPresentationStyle = .fullScreen
-                self.present(tabBar, animated: true)
+                self!.present(tabBar, animated: true)
             }
         }
     }
@@ -104,49 +116,49 @@ class AuthViewController: UIViewController {
             return
         }
         self.showIndicationSpinner()
-        userAuth.createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { [self] authResult, error in
-            self.removeIndicationSpinner()
+        userAuth.createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { [weak self] authResult, error in
+            self!.removeIndicationSpinner()
             guard error == nil else {
-                AlertMaker.shared.basicAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                AlertMaker.shared.basicAlert(on: self!, title: "Error", message: error!.localizedDescription, okFunc: nil)
                 return
             }
             
-            let changeRequest = self.userAuth.currentUser?.createProfileChangeRequest()
-            changeRequest?.displayName = usernameTextField.text
+            let changeRequest = self!.userAuth.currentUser?.createProfileChangeRequest()
+            changeRequest?.displayName = self!.usernameTextField.text
             changeRequest?.commitChanges { error in
                 guard error == nil else {
-                    AlertMaker.shared.basicAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                    AlertMaker.shared.basicAlert(on: self!, title: "Error", message: error!.localizedDescription, okFunc: nil)
                     return
                 }
             }
             
             let userInfoDictionary = [
-                "uid": authResult?.user.uid,
-                "email": emailTextField.text!,
-                "username": usernameTextField.text!,
+                "uid": authResult!.user.uid,
+                "email": self!.emailTextField.text!,
+                "username": self!.usernameTextField.text!,
             ]as [String: Any]
             
-            fireStore.collection("User_Infos").document((authResult?.user.uid)!).setData(userInfoDictionary){(error) in
+            self!.fireStore.collection("User_Infos").document((authResult?.user.uid)!).setData(userInfoDictionary){ [weak self] (error) in
                 guard error == nil else {
-                    AlertMaker.shared.basicAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                    AlertMaker.shared.basicAlert(on: self!, title: "Error", message: error!.localizedDescription, okFunc: nil)
                     return
                 }
             }
             
             let userInfo : User = User(id: (authResult?.user.uid)!,
-                                       name: usernameTextField.text!,
+                                       name: self!.usernameTextField.text!,
                                        email: (authResult?.user.email)!)
             
             if let data = try? PropertyListEncoder().encode(userInfo) {
                 UserDefaults.standard.set(data, forKey: "currentUserInfo")
             }
             
-            AlertMaker.shared.basicAlert(on: self, title: "Success", message: "User created!", okFunc: {_ in
+            AlertMaker.shared.basicAlert(on: self!, title: "Success", message: "User created!", okFunc: {_ in
                 if Auth.auth().currentUser != nil {
                     let tabBar = TabBarViewController()
                     tabBar.modalTransitionStyle = .coverVertical
                     tabBar.modalPresentationStyle = .fullScreen
-                    self.present(tabBar, animated: true)
+                    self!.present(tabBar, animated: true)
                 }
             })
         }
@@ -175,7 +187,17 @@ class AuthViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
-    // MARK: - Touch Keyboard Hide
+    //MARK: - Onboarding
+    func onboarding() {
+        UserDefaults.standard.set(true, forKey: "isOnboardingShown")
+        let onboardingViewController = OnboardingViewController()
+        onboardingViewController.hidesBottomBarWhenPushed = true
+        onboardingViewController.navigationItem.setHidesBackButton(true, animated: false)
+        onboardingViewController.modalPresentationStyle = .formSheet
+        self.present(onboardingViewController, animated: true)
+    }
+    
+    // MARK: - Hide Keyboard
     @objc func hideKeyb(){
         view.endEditing(true)
     }
