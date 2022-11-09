@@ -60,14 +60,8 @@ List the ready features here:
 
 <img src="https://user-images.githubusercontent.com/49480936/200582612-8094a664-6798-4fa9-a706-831594b8a803.PNG" width=30% height=30%>
 
-> Login
+> Demo
 
-<img src="https://user-images.githubusercontent.com/49480936/200582613-e623b576-7291-4fd0-92b8-77ca4e7f506f.PNG" width=30% height=30%>
+https://user-images.githubusercontent.com/49480936/200722802-b43b9b18-1703-4977-92a5-d97fa7dea15d.mp4
 
-> Register
-
-<img src="https://user-images.githubusercontent.com/49480936/200582614-d2301aab-c864-44de-b146-5a2c004810f5.PNG" width=30% height=30%>
-
-
-https://user-images.githubusercontent.com/49480936/200250760-94dc62c9-651a-4d6e-9105-41f65a9cca62.mp4
 
