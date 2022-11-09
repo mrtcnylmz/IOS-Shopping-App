@@ -28,6 +28,10 @@ List the ready features here:
 
 ## Screenshots
 
+> Demo
+
+https://user-images.githubusercontent.com/49480936/200722802-b43b9b18-1703-4977-92a5-d97fa7dea15d.mp4
+
 > Onboarding
 
 <img src="https://user-images.githubusercontent.com/49480936/200719624-fb51965d-5295-4fd1-a5dd-a33c9c928e9c.PNG" width=30% height=30%>
@@ -59,9 +63,3 @@ List the ready features here:
 > Basket
 
 <img src="https://user-images.githubusercontent.com/49480936/200582612-8094a664-6798-4fa9-a706-831594b8a803.PNG" width=30% height=30%>
-
-> Demo
-
-https://user-images.githubusercontent.com/49480936/200722802-b43b9b18-1703-4977-92a5-d97fa7dea15d.mp4
-
-
